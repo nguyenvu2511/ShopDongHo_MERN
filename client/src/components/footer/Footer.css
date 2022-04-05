@@ -1,0 +1,49 @@
+.footer {
+    background-color: #dfdfdf;
+    color: white;
+    height: fit-content;
+}
+.footer .footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+}
+.footer .logo {
+    width: 40%;
+    margin-top: -30px;
+}
+.footer .logo img {
+    width: 50%;
+    height: 100%;
+}
+.footer .about {
+    text-align: left;
+    padding: 30px;
+    width: 40%;
+    color: black;
+    margin-left: 60px;
+}
+.footer .about ul li p {
+    text-align: left;
+}
+.footer .listCourse {
+    margin: 50px;
+    padding-right: 130px;
+}
+.footer .listCourse img {
+    width: 60px;
+    margin: 10px;
+}
+.footer .descripsion {
+    text-align: center;
+    padding: 5px;
+    color: black;
+}
+.footer .listCourse {
+    text-align: center;
+}
+.footer .descripsion p {
+    text-align: center;
+    font-size: 13px;
+}

@@ -1,0 +1,11 @@
+.cart-shop {
+  min-height: 100vh;
+  margin-bottom: 20px;
+}
+.amount button {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #777;
+}
