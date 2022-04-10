@@ -28,7 +28,7 @@ function News() {
   function handleEditorChange({ html, text }) {
     setNew({ ...newss, content: { html, text } });
   }
-  console.log(newss);
+  console.log('newss', newss);
   const createNews = async (e) => {
     e.preventDefault();
     try {
@@ -67,9 +67,11 @@ function News() {
     }
   };
 
-  const editNews = async (id, title, content) => {
+  const editNews = async (id, title, content, images) => {
     setID(id);
-    setNew(title, content);
+    console.log(title, content, images);
+    setNew({ title: title }, { content: content });
+    setImages(images);
     setOnEdit(true);
   };
 
@@ -128,7 +130,7 @@ function News() {
             <input
               type="text"
               name="title"
-              value={news.title}
+              value={newss.title}
               required
               onChange={(e) => setNew({ ...newss, title: e.target.value })}
             />
@@ -161,7 +163,9 @@ function News() {
             {isAdmin ? (
               <div>
                 <button
-                  onClick={() => editNews(item._id, item.title, item.content)}
+                  onClick={() =>
+                    editNews(item._id, item.title, item.content, item.images)
+                  }
                 >
                   Sửa
                 </button>

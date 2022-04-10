@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GlobalState } from '../../../GlobalState';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -9,6 +9,7 @@ function OrderHistory() {
   const [history, setHistory] = state.userAPI.history;
   const [isAdmin] = state.userAPI.isAdmin;
   const [token] = state.token;
+  const [callback, setCallback] = useState(false);
   useEffect(() => {
     if (token) {
       const getHistory = async () => {
@@ -31,8 +32,22 @@ function OrderHistory() {
       };
       getHistory();
     }
-  }, [token, isAdmin, setHistory]);
-
+  }, [token, isAdmin, setHistory, callback]);
+  const saveSubmit = async (id) => {
+    try {
+      const res = await axios.put(
+        `/api/order/${id}`,
+        { status: true },
+        {
+          headers: { Authorization: token },
+        }
+      );
+      setCallback(!callback);
+      alert(res.data.msg);
+    } catch (err) {
+      alert(err.response.data.msg);
+    }
+  };
   return (
     <div className="container order-history">
       <h2>LỊCH SỬ ĐẶT HÀNG</h2>
@@ -46,7 +61,7 @@ function OrderHistory() {
           <th>Địa chỉ</th>
           <th>Ngày đặt</th>
           <th>Trạng thái</th>
-          <th>Cập nhật trạng thái</th>
+          {isAdmin && <th>Cập nhật trạng thái</th>}
           <th>Tổng tiền</th>
           <th>Chi tiết đơn hàng</th>
         </tr>
@@ -59,11 +74,22 @@ function OrderHistory() {
 
             <td>{new Date(item.createdAt).toLocaleDateString()}</td>
             <td>{item.status === false ? 'Chưa giao' : 'Đã giao hàng'}</td>
+            {isAdmin && (
+              <td>
+                {item.status === false ? (
+                  <button
+                    className="btn btn-warning"
+                    onClick={() => saveSubmit(item._id)}
+                  >
+                    Xác nhận
+                  </button>
+                ) : (
+                  ''
+                )}
+              </td>
+            )}
+
             <td>
-              <button className="btn btn-warning">Xác nhận</button>
-            </td>
-            <td>
-              {' '}
               <CurrencyFormat
                 className="product_price"
                 value={item.total}

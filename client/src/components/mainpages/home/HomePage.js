@@ -5,7 +5,7 @@ import { GlobalState } from '../../../GlobalState';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import bg from './bg.jpg';
-import ProductItem from '../../mainpages/utils/productItem/ProductItem';
+import ProductItem from '../products/productItem/ProductItem';
 function Index() {
   const state = useContext(GlobalState);
   const [products] = state.productsAPI.products;

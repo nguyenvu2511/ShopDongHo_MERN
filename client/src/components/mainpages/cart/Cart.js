@@ -75,7 +75,7 @@ function Cart() {
       }
     );
     setCart([]);
-
+    addToCart([]);
     setCallback(!callback);
     alert('Order success !');
   };
@@ -136,7 +136,7 @@ function Cart() {
                                   href="#"
                                   className="text-dark d-inline-block name-sp"
                                 >
-                                  {product.title}
+                                  {product.name}
                                 </a>
                               </h5>
                               <span className="text-muted font-weight-normal font-italic">

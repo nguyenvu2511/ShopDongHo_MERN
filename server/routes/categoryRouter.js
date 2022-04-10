@@ -1,15 +1,17 @@
 const router = require('express').Router();
-const categoryCtrl = require('../controllers/categoryCtrl');
+const categoryController = require('../controllers/categoryController');
 const auth = require('../middleware/auth');
 const authAdmin = require('../middleware/authAdmin');
 router
   .route('/category')
-  .get(categoryCtrl.getCategories)
-  .post(auth, authAdmin, categoryCtrl.createCategory);
+  .get(categoryController.getCategories)
+  .post(auth, authAdmin, categoryController.createCategory);
 
 router
   .route('/category/:id')
-  .delete(auth, authAdmin, categoryCtrl.deleteCategory);
+  .delete(auth, authAdmin, categoryController.deleteCategory);
 
-router.route('/category/:id').put(auth, authAdmin, categoryCtrl.updateCategory);
+router
+  .route('/category/:id')
+  .put(auth, authAdmin, categoryController.updateCategory);
 module.exports = router;

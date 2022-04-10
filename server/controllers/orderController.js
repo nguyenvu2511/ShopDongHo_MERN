@@ -2,7 +2,7 @@ const Orders = require('../models/orderModel');
 const Users = require('../models/userModel');
 const Products = require('../models/productModel');
 
-const orderCtrl = {
+const orderController = {
   getOrders: async (req, res) => {
     try {
       const orders = await Orders.find();
@@ -36,12 +36,19 @@ const orderCtrl = {
         return sold(item._id, item.quantity, item.sold);
       });
       await newOrder.save();
-      res.json({ msg: 'order success' });
-      const setCart = await Users.findByIdAndUpdate(
-        { _id: req.user.id },
-        { cart: [] }
+      res.json({ msg: 'Đặt hàng thành công !' });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  updateOrder: async (req, res) => {
+    try {
+      const user = await Orders.findOneAndUpdate(
+        { _id: req.params.id },
+        { status: true }
       );
-      setCart.save();
+      console.log(user.id);
+      res.json({ msg: 'Cập nhật đơn hàng thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -50,4 +57,4 @@ const orderCtrl = {
 const sold = async (id, quantity, oldSold) => {
   await Products.findOneAndUpdate({ _id: id }, { sold: quantity + oldSold });
 };
-module.exports = orderCtrl;
+module.exports = orderController;

@@ -58,7 +58,9 @@ function Brands() {
 
   const editBrand = async (id, name, images) => {
     setID(id);
-    setBrand(name, images);
+    setBrand(name);
+    setImages(images);
+    console.log(images, 'edited');
     setOnEdit(true);
   };
 
@@ -144,7 +146,7 @@ function Brands() {
               <div>
                 <button
                   className="btn btn-primary btnedit"
-                  onClick={() => editBrand(brand._id, brand.name)}
+                  onClick={() => editBrand(brand._id, brand.name, brand.images)}
                 >
                   Sửa
                 </button>

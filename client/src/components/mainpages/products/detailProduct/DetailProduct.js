@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { GlobalState } from '../../../../GlobalState';
-import ProductItem from '../../utils/productItem/ProductItem';
+import ProductItem from '../productItem/ProductItem';
 var CurrencyFormat = require('react-currency-format');
 function DetailProduct() {
   const params = useParams();
@@ -27,7 +27,7 @@ function DetailProduct() {
           <img src={detailProduct.images.url} alt="" />
           <div className="box-detail">
             <div className="row">
-              <h2>{detailProduct.title}</h2>
+              <h2>{detailProduct.name}</h2>
 
               <span className="price">Đã bán: {detailProduct.sold}</span>
             </div>

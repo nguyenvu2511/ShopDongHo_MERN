@@ -1,13 +1,13 @@
 const router = require('express').Router();
-const brandCtrl = require('../controllers/brandCtrl');
+const brandController = require('../controllers/brandController');
 const auth = require('../middleware/auth');
 const authAdmin = require('../middleware/authAdmin');
 router
   .route('/brand')
-  .get(brandCtrl.getBrands)
-  .post(auth, authAdmin, brandCtrl.createBrand);
+  .get(brandController.getBrands)
+  .post(auth, authAdmin, brandController.createBrand);
 
-router.route('/brand/:id').delete(auth, authAdmin, brandCtrl.deleteBrand);
+router.route('/brand/:id').delete(auth, authAdmin, brandController.deleteBrand);
 
-router.route('/brand/:id').put(auth, authAdmin, brandCtrl.updateBrand);
+router.route('/brand/:id').put(auth, authAdmin, brandController.updateBrand);
 module.exports = router;

@@ -2,7 +2,7 @@ const Users = require('../models/userModel');
 const Orders = require('../models/orderModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const userCtrl = {
+const userController = {
   register: async (req, res) => {
     try {
       const { name, email, password, address } = req.body;
@@ -30,6 +30,21 @@ const userCtrl = {
         path: '/user/refresh_token',
       });
       res.json({ accesstoken });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  update: async (req, res) => {
+    try {
+      const { name, address } = req.body.userInfo;
+
+      const user = await Users.findOneAndUpdate(
+        { _id: req.params.id },
+        { name, address }
+      );
+
+      console.log(user, req.params.id);
+      res.json({ msg: 'Update success' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -123,4 +138,4 @@ const createAccessToken = (user) => {
 const createRefreshToken = (user) => {
   return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
 };
-module.exports = userCtrl;
+module.exports = userController;

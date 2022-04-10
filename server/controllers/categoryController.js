@@ -1,6 +1,6 @@
 const Category = require('../models/categoryModel');
 
-const categoryCtrl = {
+const categoryController = {
   getCategories: async (req, res) => {
     try {
       const categories = await Category.find();
@@ -44,4 +44,4 @@ const categoryCtrl = {
   },
 };
 
-module.exports = categoryCtrl;
+module.exports = categoryController;

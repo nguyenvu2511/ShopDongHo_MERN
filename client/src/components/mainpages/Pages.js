@@ -19,6 +19,7 @@ import DetailNews from './news/DetailNews';
 import { GlobalState } from '../../GlobalState';
 import CreateProduct from './products/createProduct/CreateProduct';
 import OrderSuccess from './history/OrderSuccess';
+import UserInfo from './user/UserInfo';
 function Pages() {
   const state = useContext(GlobalState);
   const [isLogged] = state.userAPI.isLogged;
@@ -30,6 +31,11 @@ function Pages() {
       <Route path="/products" exact component={Products} />
       <Route
         path="/products/create"
+        exact
+        component={isAdmin ? CreateProduct : NotFound}
+      />
+      <Route
+        path="/edit_product/:id"
         exact
         component={isAdmin ? CreateProduct : NotFound}
       />
@@ -47,6 +53,11 @@ function Pages() {
         path="/order-history"
         exact
         component={isLogged ? OrderHistory : NotFound}
+      />
+      <Route
+        path="/user-info"
+        exact
+        component={isLogged ? UserInfo : NotFound}
       />
       <Route
         path="/order-history/:id"

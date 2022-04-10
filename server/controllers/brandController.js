@@ -1,6 +1,6 @@
 const Brand = require('../models/brandModel');
 
-const brandCtrl = {
+const brandController = {
   getBrands: async (req, res) => {
     try {
       const brands = await Brand.find();
@@ -34,9 +34,9 @@ const brandCtrl = {
   },
   updateBrand: async (req, res) => {
     try {
-      const { name } = req.body;
+      const { name, images } = req.body;
 
-      await Brand.findOneAndUpdate({ id: req.params.id, name, images });
+      await Brand.findOneAndUpdate({ _id: req.params.id }, { name, images });
       res.json({ msg: 'Update success' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -44,4 +44,4 @@ const brandCtrl = {
   },
 };
 
-module.exports = brandCtrl;
+module.exports = brandController;

@@ -1,6 +1,6 @@
 const Products = require('../models/productModel');
 
-const productCtrl = {
+const productController = {
   getProducts: async (req, res) => {
     try {
       const products = await Products.find();
@@ -13,7 +13,7 @@ const productCtrl = {
     try {
       const {
         product_id,
-        title,
+        name,
         price,
         description,
         content,
@@ -29,7 +29,7 @@ const productCtrl = {
 
       const newProduct = new Products({
         product_id,
-        title: title.toLowerCase(),
+        name,
         price,
         description,
         content,
@@ -54,14 +54,14 @@ const productCtrl = {
   },
   updateProduct: async (req, res) => {
     try {
-      const { title, price, description, content, images, category, brand } =
+      const { name, price, description, content, images, category, brand } =
         req.body;
       if (!images) return res.status(400).json({ msg: 'No image upload' });
 
       await Products.findOneAndUpdate(
         { _id: req.params.id },
         {
-          title: title.toLowerCase(),
+          name,
           price,
           description,
           content,
@@ -78,4 +78,4 @@ const productCtrl = {
   },
 };
 
-module.exports = productCtrl;
+module.exports = productController;

@@ -16,7 +16,7 @@
   color:blue
 }
 /* ----------- Product Item ----------------- */
-@import url('../utils/productItem/productItem.css');
+@import url('../products/productItem/productItem.css');
 
 .delete-all {
   text-align: right;

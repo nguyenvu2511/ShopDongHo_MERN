@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { GlobalState } from '../../../../GlobalState';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import './CreateProduct.css';
 const initialState = {
   product_id: '',
-  title: '',
+  name: '',
   price: 0,
   description: '',
   content: '',
@@ -29,24 +29,39 @@ function CreateProduct() {
   const history = useHistory();
   const param = useParams();
 
+  const [products] = state.productsAPI.products;
   const [onEdit, setOnEdit] = useState(false);
+  const [callback, setCallback] = state.productsAPI.callback;
+  useEffect(() => {
+    if (param.id) {
+      setOnEdit(true);
+      products.forEach((product) => {
+        if (product._id === param.id) {
+          setProduct(product);
+          setImages(product.images);
+        }
+      });
+    } else {
+      setOnEdit(false);
+      setProduct(initialState);
+      setImages(false);
+    }
+  }, [param.id, products]);
+
   const styleUpload = {
     display: images ? 'block' : 'none',
   };
   const handleUpload = async (e) => {
     e.preventDefault();
     try {
-      if (!isAdmin) return alert("You're not an admin");
+      if (!isAdmin) return alert('Bạn không phải Admin');
       const file = e.target.files[0];
 
       if (!file) return alert('File not exist.');
 
-      if (file.size > 1024 * 1024)
-        // 1mb
-        return alert('Size too large!');
+      if (file.size > 1024 * 1024) return alert('Size too large!');
 
       if (file.type !== 'image/jpeg' && file.type !== 'image/png')
-        // 1mb
         return alert('File format is incorrect.');
 
       let formData = new FormData();
@@ -68,7 +83,7 @@ function CreateProduct() {
 
   const handleDestroy = async () => {
     try {
-      if (!isAdmin) return alert("You're not an admin");
+      if (!isAdmin) return alert('Bạn không phải Admin');
       setLoading(true);
       await axios.post(
         '/api/destroy',
@@ -91,8 +106,8 @@ function CreateProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!isAdmin) return alert("You're not an admin");
-      if (!images) return alert('No Image Upload');
+      if (!isAdmin) return alert('Bạn không phải Admin');
+      if (!images) return alert('Không có hình ảnh');
 
       if (onEdit) {
         await axios.put(
@@ -102,6 +117,7 @@ function CreateProduct() {
             headers: { Authorization: token },
           }
         );
+        setCallback(!callback);
       } else {
         await axios.post(
           '/api/products',
@@ -110,8 +126,10 @@ function CreateProduct() {
             headers: { Authorization: token },
           }
         );
+        setCallback(!callback);
       }
-      history.push('/');
+      alert('Cập nhật thông tin sản phẩm thành công !');
+      history.push('/products');
     } catch (err) {
       alert(err.response.data.msg);
     }
@@ -148,14 +166,14 @@ function CreateProduct() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">name</label>
           <input
             className="form-control"
             type="text"
-            name="title"
-            id="title"
+            name="name"
+            id="name"
             required
-            value={product.title}
+            value={product.name}
             onChange={handleChangeInput}
           />
         </div>
@@ -233,7 +251,12 @@ function CreateProduct() {
             ))}
           </select>
         </div>
-        <button type="submit">{onEdit ? 'Update' : 'Create'}</button>
+        <button
+          type="submit"
+          className={!onEdit ? 'btn btn-primary' : 'btn btn-warning'}
+        >
+          {onEdit ? 'Cập nhật' : 'Thêm sản phẩm'}
+        </button>
       </form>
     </div>
   );

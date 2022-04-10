@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    title: {
+    name: {
       type: String,
       trim: true,
       required: true,
@@ -37,10 +37,6 @@ const productSchema = new mongoose.Schema(
     brand: {
       type: String,
       required: true,
-    },
-    checked: {
-      type: Boolean,
-      default: false,
     },
     sold: {
       type: Number,

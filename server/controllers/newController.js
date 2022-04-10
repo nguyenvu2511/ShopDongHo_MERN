@@ -1,6 +1,6 @@
 const News = require('../models/newsModel');
 
-const newsCtrl = {
+const newController = {
   getNews: async (req, res) => {
     try {
       const news = await News.find();
@@ -48,4 +48,4 @@ const newsCtrl = {
   },
 };
 
-module.exports = newsCtrl;
+module.exports = newController;
