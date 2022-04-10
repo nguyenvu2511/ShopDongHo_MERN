@@ -19,7 +19,6 @@ function Login() {
     e.preventDefault();
     try {
       await axios.post('user/login', { ...user });
-      localStorage.setItem('fisrtLogin', true);
 
       alert('Đăng nhập thành công !');
 
@@ -30,29 +29,36 @@ function Login() {
   };
   return (
     <>
-      <div className="login-page">
-        <form onSubmit={loginSubmit}>
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="Email"
-            value={user.email}
-            onChange={onChangeInput}
-          />
-          <input
-            type="password"
-            name="password"
-            required
-            placeholder="Password"
-            value={user.password}
-            onChange={onChangeInput}
-          />
-          <div className="row">
-            <button type="submit">Login</button>
-            <Link to="/register">Register</Link>
-          </div>
-        </form>
+      <div className="container login">
+        <h3 className="title">ĐĂNG NHẬP</h3>
+        <div className="login-page">
+          <form onSubmit={loginSubmit}>
+            <input
+              type="email"
+              name="email"
+              className="form-control"
+              required
+              placeholder="Email"
+              value={user.email}
+              onChange={onChangeInput}
+            />
+            <input
+              type="password"
+              name="password"
+              required
+              placeholder="Password"
+              className="form-control"
+              value={user.password}
+              onChange={onChangeInput}
+            />
+            <div className="row">
+              <button className="btn btn-success" type="submit">
+                Đăng nhập
+              </button>
+              <Link to="/register">Đăng ký</Link>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

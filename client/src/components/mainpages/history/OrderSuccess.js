@@ -1,22 +1,26 @@
 import React from 'react';
-import './NotFound.css';
-function NotFound() {
+
+function OrderSuccess() {
   return (
     <div className="container body">
       <div className="row">
         <div className="col-md-12">
           <div className="error-template">
-            <h1>Oops!</h1>
-            <h2>404 Not Found</h2>
+            <h1>ĐẶT HÀNG THÀNH CÔNG !</h1>
+
             <div className="error-details">
-              Sorry, an error has occured, Requested page not found!
+              Chúng tôi đã nhận được yêu cầu mua hàng của bạn, <br /> chúng tôi
+              sẽ sớm liên hệ và giao hàng đến cho bạn.
             </div>
             <div className="error-actions">
               <a href="/" className="btn btn-primary btn-lg">
                 <span className="glyphicon glyphicon-home"></span>
                 Go Home{' '}
               </a>
-              <a href="/support" className="btn btn-warning">
+              <a
+                href="http://www.jquery2dotnet.com"
+                className="btn btn-warning"
+              >
                 <span className="glyphicon glyphicon-envelope"></span> Contact
                 Support{' '}
               </a>
@@ -28,4 +32,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default OrderSuccess;

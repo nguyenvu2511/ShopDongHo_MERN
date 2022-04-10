@@ -25,15 +25,13 @@ button {
   cursor: pointer;
 }
 
-/* ---------------- Header ------------ */
-@import url('./components/headers/Header.css');
 
 /* ------------- Products -------------- */
 
 @import url('./components/mainpages/products/Products.css');
 
 /* ---------------- Detail Product --------------- */
-@import url('./components/mainpages/detailProduct/DetailProduct.css');
+@import url('./components/mainpages/products/detailProduct/DetailProduct.css');
 
 @import url('../node_modules/bootstrap/');
 @import url('../node_modules/@fortawesome/fontawesome-free-webfonts/');

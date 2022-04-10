@@ -1,11 +1,11 @@
 import React from 'react';
-
+import './Support.css';
 function Support() {
   return (
     <div className="container">
-      <div className="support-body row">
+      <div className="support-body">
         <div className="info col-6">
-          <h3>
+          <h3 className>
             <strong>LIÊN HỆ VỚI CHÚNG TÔI</strong>
           </h3>
           <ul>

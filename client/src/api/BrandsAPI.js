@@ -6,12 +6,12 @@ function BrandsAPI() {
   const [callback, setCallback] = useState(false);
 
   useEffect(() => {
-    const getCategories = async () => {
+    const getBrands = async () => {
       const res = await axios.get('/api/brand');
       setBrands(res.data);
     };
 
-    getCategories();
+    getBrands();
   }, [callback]);
   return {
     brands: [brands, setBrands],

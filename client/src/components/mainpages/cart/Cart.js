@@ -11,8 +11,7 @@ function Cart() {
   const [cart, setCart] = state.userAPI.cart;
   const [total, setTotal] = useState(0);
   const [token] = state.token;
-  const [callback, setCallback] = state.userAPI.callback;
-
+  const [callback, setCallback] = state.productsAPI.callback;
   useEffect(() => {
     const getTotal = () => {
       const total = cart.reduce((prev, item) => {
@@ -70,14 +69,15 @@ function Cart() {
   const tranSuccess = async () => {
     await axios.post(
       '/api/order',
-      { cart },
+      { cart, total },
       {
         headers: { Authorization: token },
       }
     );
     setCart([]);
-    alert('Order success !');
+
     setCallback(!callback);
+    alert('Order success !');
   };
 
   if (cart.length === 0)
@@ -134,7 +134,7 @@ function Cart() {
                               <h5 className="mb-0">
                                 <a
                                   href="#"
-                                  className="text-dark d-inline-block"
+                                  className="text-dark d-inline-block name-sp"
                                 >
                                   {product.title}
                                 </a>
@@ -188,32 +188,6 @@ function Cart() {
           <div className="row py-5 p-4 bg-white rounded shadow-sm content-down">
             <div className="col-lg-6">
               <div className="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
-                Mã giảm giá
-              </div>
-              <div className="p-4">
-                <p className="font-italic mb-4">
-                  Nếu bạn có mã phiếu giảm giá, vui lòng nhập mã đó vào ô bên
-                  dưới
-                </p>
-                <div className="input-group mb-4 border rounded-pill p-2">
-                  <input
-                    type="text"
-                    placeholder="Apply coupon"
-                    aria-describedby="button-addon3"
-                    className="form-control border-0"
-                  />
-                  <div className="input-group-append border-0">
-                    <button
-                      id="button-addon3"
-                      type="button"
-                      className="btn btn-dark px-4 rounded-pill"
-                    >
-                      <i className="fa fa-gift mr-2"></i>Áp dụng mã giảm giá
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
                 Ghi chú cho người bán
               </div>
               <div className="p-4">
@@ -240,19 +214,12 @@ function Cart() {
                 </p>
                 <ul className="list-unstyled mb-4">
                   <li className="d-flex justify-content-between py-3 border-bottom">
-                    <strong className="text-muted">Order Subtotal </strong>
-                    <strong>$390.00</strong>
-                  </li>
-                  <li className="d-flex justify-content-between py-3 border-bottom">
                     <strong className="text-muted">
                       Shipping and handling
                     </strong>
-                    <strong>$10.00</strong>
+                    <strong>0</strong>
                   </li>
-                  <li className="d-flex justify-content-between py-3 border-bottom">
-                    <strong className="text-muted">Tax</strong>
-                    <strong>$0.00</strong>
-                  </li>
+
                   <li className="d-flex justify-content-between py-3 border-bottom">
                     <strong className="text-muted">Total</strong>
                     <h5 className="font-weight-bold">
@@ -268,9 +235,9 @@ function Cart() {
                 <a
                   href="#"
                   onClick={tranSuccess}
-                  className="btn btn-dark rounded-pill py-2 btn-block"
+                  className="btn btn-success rounded-pill py-2 btn-block"
                 >
-                  Procceed to checkout
+                  Đặt Hàng
                 </a>
               </div>
             </div>

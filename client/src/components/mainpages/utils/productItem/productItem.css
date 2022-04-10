@@ -70,12 +70,12 @@
 
 #btn_buy {
   border-radius: 3px;
-  background: #2183a2;
+  background: orange;
   margin-right: 5px;
 }
 #btn_view {
   border-radius: 3px;
-  background: rgb(9, 9, 9);
+  background: #2183a2;
   margin-left: 5px;
 }
 .product_card input {

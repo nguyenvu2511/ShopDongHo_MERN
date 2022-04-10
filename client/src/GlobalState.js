@@ -4,21 +4,21 @@ import UserAPI from './api/UserAPI';
 import axios from 'axios';
 import CategoriesAPI from './api/CategoriesAPI';
 import BrandsAPI from './api/BrandsAPI';
+import NewsAPI from './api/NewsAPI';
 export const GlobalState = createContext();
 
 export const DataProvider = ({ children }) => {
   const [token, setToken] = useState(false);
 
-  const refreshToken = async () => {
-    const res = await axios.get('/user/refresh_token');
-
-    setToken(res.data.accesstoken);
-  };
-
   useEffect(() => {
-    const fisrtLogin = localStorage.getItem('fisrtLogin');
-
-    if (fisrtLogin) refreshToken();
+    const refreshToken = async () => {
+      const res = await axios.get('/user/refresh_token');
+      setTimeout(() => {
+        refreshToken();
+      }, 15000);
+      setToken(res.data.accesstoken);
+    };
+    refreshToken();
   }, []);
   const state = {
     token: [token, setToken],
@@ -26,6 +26,7 @@ export const DataProvider = ({ children }) => {
     userAPI: UserAPI(token),
     categoriesAPI: CategoriesAPI(),
     brandsAPI: BrandsAPI(),
+    newsAPI: NewsAPI(),
   };
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;
 };

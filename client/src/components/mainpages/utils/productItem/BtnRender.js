@@ -12,19 +12,19 @@ function BtnRender({ product }) {
       {isAdmin ? (
         <>
           <Link id="btn_buy" to="#!">
-            Delete
+            Xóa
           </Link>
           <Link id="btn_view" to={`edit_product/${product._id}`}>
-            Edit
+            Sửa
           </Link>
         </>
       ) : (
         <>
           <Link id="btn_buy" to="#!" onClick={() => addCart(product)}>
-            Buy
+            Mua hàng
           </Link>
           <Link id="btn_view" to={`/detail/${product._id}`}>
-            View
+            Chi tiết
           </Link>
         </>
       )}

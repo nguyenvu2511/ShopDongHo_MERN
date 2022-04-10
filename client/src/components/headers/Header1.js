@@ -16,26 +16,14 @@ function Header1() {
   const [isLogged] = state.userAPI.isLogged;
   const [isAdmin] = state.userAPI.isAdmin;
   const [cart] = state.userAPI.cart;
-  const [categories] = state.categoriesAPI.categories;
+  const [userInfo] = state.userAPI.userInfo;
   console.log(state);
   const logoutUser = async () => {
     await await axios.get('/user/logout');
-    localStorage.clear();
     alert('Đăng xuất thành công!');
     window.location.href = '/';
   };
-  const adminRouter = () => {
-    return (
-      <>
-        <li>
-          <Link to="/create_product">Create Product</Link>
-        </li>
-        <li>
-          <Link to="/category">Categories</Link>
-        </li>
-      </>
-    );
-  };
+
   const loggedRouter = () => {
     return (
       <>
@@ -54,12 +42,7 @@ function Header1() {
           <img src={Menu} alt="" width="30" />
           {isAdmin ? (
             <Link to={`/`}>
-              <img
-                style={{ margin: '20px' }}
-                src={logoadmin}
-                width="130px"
-                height="50px"
-              />
+              <h2 className="container "> Admin</h2>
             </Link>
           ) : (
             <Link to={`/`}>
@@ -174,6 +157,7 @@ function Header1() {
               </Link>
             </>
           )}
+
           <div className="support">
             {isLogged ? (
               loggedRouter()

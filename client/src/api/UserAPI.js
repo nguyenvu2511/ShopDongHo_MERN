@@ -5,7 +5,7 @@ function UserAPI(token) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [cart, setCart] = useState([]);
   const [history, setHistory] = useState([]);
-  const [callback, setCallback] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
   useEffect(() => {
     if (token) {
       const getUser = async () => {
@@ -14,6 +14,7 @@ function UserAPI(token) {
             headers: { Authorization: token },
           });
           setIsLogged(true);
+          setUserInfo(res.data);
           res.data.role === 1 ? setIsAdmin(true) : setIsAdmin(false);
           setCart(res.data.cart);
         } catch (err) {
@@ -23,30 +24,6 @@ function UserAPI(token) {
       getUser();
     }
   }, [token]);
-
-  useEffect(() => {
-    if (token) {
-      const getHistory = async () => {
-        try {
-          if (isAdmin) {
-            const res = await axios.get('/api/order', {
-              headers: { Authorization: token },
-            });
-            setHistory(res.data);
-          } else {
-            const res = await axios.get('/user/history', {
-              headers: { Authorization: token },
-            });
-
-            setHistory(res.data);
-          }
-        } catch (err) {
-          alert(err.response.data.msg);
-        }
-      };
-      getHistory();
-    }
-  }, [token, callback, isAdmin]);
 
   const addCart = async (product) => {
     if (!isLogged) return alert('Vui lòng đăng nhập để mua hàng');
@@ -75,7 +52,7 @@ function UserAPI(token) {
     cart: [cart, setCart],
     addCart: addCart,
     history: [history, setHistory],
-    callback: [callback, setCallback],
+    userInfo: [userInfo, setUserInfo],
   };
 }
 

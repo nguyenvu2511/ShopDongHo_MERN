@@ -21,8 +21,6 @@ function Register() {
     e.preventDefault();
     try {
       await axios.post('user/register', { ...user });
-      localStorage.setItem('fisrtLogin', true);
-
       alert('Đăng ký thành công !');
 
       window.location.href = '/login';
@@ -32,13 +30,14 @@ function Register() {
   };
   return (
     <>
+      <h3 className="title">ĐĂNG KÝ</h3>
       <div className="login-page">
         <form onSubmit={registerSubmit}>
           <input
             type="text"
             name="name"
             required
-            placeholder="Name"
+            placeholder="Họ tên"
             value={user.name}
             onChange={onChangeInput}
           />
@@ -54,7 +53,7 @@ function Register() {
             type="password"
             name="password"
             required
-            placeholder="Password"
+            placeholder="Mật khẩu"
             value={user.password}
             onChange={onChangeInput}
           />
@@ -62,13 +61,21 @@ function Register() {
             type="text"
             name="address"
             required
-            placeholder="Address"
+            placeholder="Địa chỉ"
+            value={user.address}
+            onChange={onChangeInput}
+          />
+          <input
+            type="text"
+            name="sdt"
+            required
+            placeholder="Số điện thoại"
             value={user.address}
             onChange={onChangeInput}
           />
           <div className="row">
-            <button type="submit">Register</button>
-            <Link to="/login">Login</Link>
+            <button type="submit">Đăng ký</button>
+            <Link to="/login">Đăng nhập</Link>
           </div>
         </form>
       </div>

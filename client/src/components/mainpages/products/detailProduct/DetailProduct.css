@@ -6,6 +6,9 @@
   padding: 50px;
   font-size: 150%;
 }
+.price{
+  font-weight: bold;
+}
 .detail img {
   max-width: 400px;
   width: 100%;

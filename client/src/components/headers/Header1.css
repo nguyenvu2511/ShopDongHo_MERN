@@ -11,15 +11,38 @@
   color: black;
   margin: 10px;
 }
+.news-title{
+  color: black;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; 
 
+
+}
 .home-page{
   width: 100%;
-  min-height: 250vh;
+  min-height: 280vh;
 }
 .band-name{
  color: #000;
  margin: 5px;
  
+}
+.cart-icon{
+  position: relative;
+  margin-right: 20px;
+  
+}
+.cart-icon span{
+  background: red;
+ 
+  border-radius: 60%;
+  color: white;
+  position: relative;
+  top:-10px;
+  right: -40px;
+  padding: 5px 7px;
+  font-size: 10px;
 }
 .slick-prev {
   left: -10px !important;

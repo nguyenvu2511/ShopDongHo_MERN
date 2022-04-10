@@ -5,9 +5,7 @@ function Footer() {
     <footer>
       <div className="footer">
         <div className="footer-content">
-          <div className="logo">
-            <img src={'logo'} />
-          </div>
+          <div className="logo">{/* <img src={'logo'} /> */}</div>
           <div className="about">
             <h3>Thành viên thực hiện</h3>
             <ul>
@@ -40,9 +38,9 @@ function Footer() {
         <div className="descripsion">
           <p>
             <b style={{ color: '#71807a' }}>Website</b> được tạo ra với mục đích
-            học tập và phục vụ cho đồ án chuyên ngành. Mọi cá nhân, tổ chức
-            trong Website đều là giả định. Mọi sự trùng hợp xảy ra có thể là
-            ngẫu nhiên.
+            học tập và phục vụ cho đồ án môn học. Mọi cá nhân, tổ chức trong
+            Website đều là giả định. Mọi sự trùng hợp xảy ra có thể là ngẫu
+            nhiên.
           </p>
           <p>
             <b style={{ color: '#71807a' }}></b> Xin chân thành cảm ơn ❤️

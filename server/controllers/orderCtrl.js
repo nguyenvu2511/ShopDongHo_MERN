@@ -20,7 +20,7 @@ const orderCtrl = {
       if (!user)
         return res.status(500).json({ msg: 'Người dùng không tôn tại.' });
 
-      const { cart } = req.body;
+      const { cart, total } = req.body;
       const { _id, name, email, address } = user;
 
       const newOrder = new Orders({
@@ -29,6 +29,7 @@ const orderCtrl = {
         email,
         cart,
         address,
+        total,
       });
 
       cart.filter((item) => {
@@ -36,6 +37,11 @@ const orderCtrl = {
       });
       await newOrder.save();
       res.json({ msg: 'order success' });
+      const setCart = await Users.findByIdAndUpdate(
+        { _id: req.user.id },
+        { cart: [] }
+      );
+      setCart.save();
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

@@ -1,4 +1,4 @@
-.brands{
+.news{
     min-height:50vh;
     max-width: 700px;
     display: flex;
@@ -7,37 +7,43 @@
     margin: 30px auto;
 }
 .title{
+    margin-top: 20px;
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 24px;
     color: blue;
 }
-.btnedit{
-    margin:10px
+.product_price{
+    font-weight: bold;
 }
-.brands form{
+.news form{
     width: 290px;
     margin-bottom: 20px;
 }
-.brands label{
+.news label{
     display: block;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 10px;
 }
-.brands input, button{
+.news input, button{
     height: 35px;
     border: none;
     outline: none;
     border-bottom: 1px solid orange;
 }
-.brands input{
+.news input{
     width: 210px;
 }
-
-.brands .row{
+.news button{
+    width: 70px;
+    background: #555;
+    color: white;
+    margin-left: 10px;
+}
+.news .row{
     min-width: 290px;
     display: flex;
     justify-content: space-between;

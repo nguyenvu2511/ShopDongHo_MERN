@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { GlobalState } from '../../../GlobalState';
 import axios from 'axios';
-import './Brands.css';
+import './News.css';
 import { Link } from 'react-router-dom';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
@@ -14,25 +14,32 @@ import 'react-markdown-editor-lite/lib/index.css';
 // Initialize a markdown parser
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-// Finish!
-
-function Brands() {
+function News() {
   const state = useContext(GlobalState);
-  const [brands] = state.brandsAPI.brands;
-  const [brand, setBrand] = useState('');
+  const [news] = state.newsAPI.news;
+  const [newss, setNew] = useState('');
   const [token] = state.token;
-  const [callback, setCallback] = state.brandsAPI.callback;
+  const [callback, setCallback] = state.newsAPI.callback;
   const [onEdit, setOnEdit] = useState(false);
   const [id, setID] = useState('');
   const [isAdmin] = state.userAPI.isAdmin;
   const [images, setImages] = useState(false);
-  const createBrand = async (e) => {
+
+  function handleEditorChange({ html, text }) {
+    setNew({ ...newss, content: { html, text } });
+  }
+  console.log(newss);
+  const createNews = async (e) => {
     e.preventDefault();
     try {
       if (onEdit) {
         const res = await axios.put(
-          `/api/brand/${id}`,
-          { name: brand, images },
+          `/api/news/${id}`,
+          {
+            title: newss.title,
+            content: newss.content,
+            images,
+          },
           {
             headers: { Authorization: token },
           }
@@ -40,8 +47,12 @@ function Brands() {
         alert(res.data.msg);
       } else {
         const res = await axios.post(
-          '/api/brand',
-          { name: brand, images },
+          '/api/news',
+          {
+            title: newss.title,
+            content: newss.content,
+            images,
+          },
           {
             headers: { Authorization: token },
           }
@@ -49,22 +60,22 @@ function Brands() {
         alert(res.data.msg);
       }
       setOnEdit(false);
-      setBrand('');
+      setNew('');
       setCallback(!callback);
     } catch (err) {
       alert(err.response.data.msg);
     }
   };
 
-  const editBrand = async (id, name, images) => {
+  const editNews = async (id, title, content) => {
     setID(id);
-    setBrand(name, images);
+    setNew(title, content);
     setOnEdit(true);
   };
 
-  const deleteBrand = async (id) => {
+  const deleteNews = async (id) => {
     try {
-      const res = await axios.delete(`/api/brand/${id}`, {
+      const res = await axios.delete(`/api/news/${id}`, {
         headers: { Authorization: token },
       });
       alert(res.data.msg);
@@ -104,56 +115,57 @@ function Brands() {
     }
   };
   return (
-    <div className="brands">
+    <div className="news">
       {isAdmin ? (
         <>
           <label htmlFor="title">Hình ảnh</label>
           <div>
             <input type="file" name="file" onChange={handleUpload} />
           </div>
-          <form onSubmit={createBrand}>
-            <label htmlFor="brand">Tên thương hiệu</label>
+
+          <form onSubmit={createNews}>
+            <label htmlFor="title">Tin tức</label>
             <input
               type="text"
-              name="brand"
-              value={brand}
+              name="title"
+              value={news.title}
               required
-              onChange={(e) => setBrand(e.target.value)}
+              onChange={(e) => setNew({ ...newss, title: e.target.value })}
             />
 
-            <button className="btn btn-success" type="submit">
-              {onEdit ? 'Cập nhật' : 'Thêm'}
+            <button className="btn btn-primary" type="submit">
+              {onEdit ? 'Sửa' : 'Thêm'}
             </button>
           </form>
+          <MdEditor
+            style={{ width: '100%', height: '300px' }}
+            renderHTML={(text) => mdParser.render(text)}
+            onChange={handleEditorChange}
+          />
         </>
       ) : (
-        <h3 className="title"> DANH SÁCH THƯƠNG HIỆU</h3>
+        <h3>Tin tức</h3>
       )}
 
       <div className="container">
-        {brands.map((brand) => (
-          <div className="row" key={brand._id}>
-            <img src={brand.images.url} width="180px" height="108px" />
+        <h3 className="title">Tin tức</h3>
+        {news.map((item) => (
+          <div className="row" key={item._id}>
             <Link
-              to={`/brands/${brand._id}`}
+              to={`/news/${item._id}`}
               style={{ color: 'black', fontWeight: 'bold' }}
             >
-              <p>{brand.name}</p>
+              <img src={item.images.url} width="150px" height="100px" />
+              <p>{item.title}</p>
             </Link>
             {isAdmin ? (
               <div>
                 <button
-                  className="btn btn-primary btnedit"
-                  onClick={() => editBrand(brand._id, brand.name)}
+                  onClick={() => editNews(item._id, item.title, item.content)}
                 >
                   Sửa
                 </button>
-                <button
-                  className="btn btn-warning"
-                  onClick={() => deleteBrand(brand._id)}
-                >
-                  Xóa
-                </button>
+                <button onClick={() => deleteNews(item._id)}>Xóa</button>
               </div>
             ) : (
               <div></div>
@@ -165,4 +177,4 @@ function Brands() {
   );
 }
 
-export default Brands;
+export default News;

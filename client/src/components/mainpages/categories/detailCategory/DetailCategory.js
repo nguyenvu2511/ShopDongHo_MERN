@@ -22,7 +22,7 @@ function DetailCategory() {
   return (
     <>
       <div className="container">
-        <h2>Đồng hồ {category.name}</h2>
+        <h2 className="title"> {category.name}</h2>
         <div className="products">
           {products.map((product) => {
             return product.category === category.name ? (

@@ -3,9 +3,17 @@
   text-align: center;
 }
 .error-actions {
-  margin-top: 15px;
+  margin-top: 55px;
+  margin-bottom: 15px;
+}
+.error-details{
+  margin-top: 35px;
   margin-bottom: 15px;
 }
 .error-actions .btn {
   margin-right: 10px;
+}
+
+.body{
+  height:700px
 }

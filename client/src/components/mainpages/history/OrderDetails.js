@@ -8,7 +8,7 @@ function OrderDetails() {
   const state = useContext(GlobalState);
   const [history] = state.userAPI.history;
   const [orderDetails, setOrderDetails] = useState([]);
-
+  const [total, setTotal] = useState(0);
   const params = useParams();
 
   useEffect(() => {
@@ -44,7 +44,6 @@ function OrderDetails() {
 
               <td>{item.quantity}</td>
               <td>
-                {' '}
                 <CurrencyFormat
                   value={item.price * item.quantity}
                   displayType={'text'}

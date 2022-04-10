@@ -5,7 +5,16 @@
   justify-items: center;
   margin: 20px 0;
 }
-
+.create-product{
+  margin:15px
+}
+.title-product{
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size:24px;
+  color:blue
+}
 /* ----------- Product Item ----------------- */
 @import url('../utils/productItem/productItem.css');
 

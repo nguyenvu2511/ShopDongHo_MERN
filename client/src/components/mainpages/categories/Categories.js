@@ -65,7 +65,7 @@ function Categories() {
     <div className="categories">
       {isAdmin ? (
         <form onSubmit={createCategory}>
-          <label htmlFor="category">Category</label>
+          <label htmlFor="category">Loại sản phẩm</label>
           <input
             type="text"
             name="category"
@@ -74,10 +74,12 @@ function Categories() {
             onChange={(e) => setCategory(e.target.value)}
           />
 
-          <button type="submit">{onEdit ? 'Update' : 'Create'}</button>
+          <button className="btn btn-success" type="submit">
+            {onEdit ? 'Sửa' : 'Thêm'}
+          </button>
         </form>
       ) : (
-        <div></div>
+        <h3 className="title">DANH SÁCH LOẠI SẢN PHẨM</h3>
       )}
 
       <div className="container">
@@ -94,10 +96,10 @@ function Categories() {
                 <button
                   onClick={() => editCategory(category._id, category.name)}
                 >
-                  Edit
+                  Sửa
                 </button>
                 <button onClick={() => deleteCategory(category._id)}>
-                  Delete
+                  Xóa
                 </button>
               </div>
             ) : (

@@ -22,6 +22,7 @@ app.use('/api', require('./routes/upload'));
 app.use('/api', require('./routes/productRouter'));
 app.use('/api', require('./routes/orderRouter'));
 app.use('/api', require('./routes/brandRouter'));
+app.use('/api', require('./routes/newsRouter'));
 // Connect to mongodb
 
 const URI = process.env.MONGODB_URL;
