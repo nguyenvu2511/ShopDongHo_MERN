@@ -14,11 +14,11 @@ const newController = {
       const { title, content, images } = req.body;
 
       const news = await News.findOne({ title });
-      if (news) return res.status(404).json({ msg: 'This news already exist' });
+      if (news) return res.status(404).json({ msg: 'Tin tức đã tồn tại !' });
       const newNews = new News({ title, content, images });
       await newNews.save();
 
-      res.json({ msg: 'Create News Success' });
+      res.json({ msg: 'Thêm tin tức mới thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -26,7 +26,7 @@ const newController = {
   deleteNews: async (req, res) => {
     try {
       await News.findByIdAndDelete(req.params.id);
-      res.json({ msg: 'deleteNews success' });
+      res.json({ msg: 'Xóa tin tức thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -41,7 +41,7 @@ const newController = {
         content,
         images,
       });
-      res.json({ msg: 'Update success' });
+      res.json({ msg: 'Cập nhật tin tức thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

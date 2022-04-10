@@ -83,7 +83,8 @@ function UserInfo() {
                     class="form-control"
                     name="phonenumber"
                     placeholder="Số điện thoại"
-                    value=""
+                    value={userInfo.phonenumber}
+                    onChange={onChangeInput}
                   />
                 </div>
                 <div class="col-md-12">

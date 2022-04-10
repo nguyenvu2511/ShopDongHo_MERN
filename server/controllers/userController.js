@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const userController = {
   register: async (req, res) => {
     try {
-      const { name, email, password, address } = req.body;
+      const { name, email, password, address, phonenumber } = req.body;
+      console.log('check', req.body);
       const user = await Users.findOne({ email });
       if (user)
         return res
@@ -20,6 +21,7 @@ const userController = {
         email,
         address,
         password: passwordHash,
+        phonenumber,
       });
       await newUser.save();
       // create jwt
@@ -36,15 +38,15 @@ const userController = {
   },
   update: async (req, res) => {
     try {
-      const { name, address } = req.body.userInfo;
+      const { name, address, phonenumber } = req.body.userInfo;
 
       const user = await Users.findOneAndUpdate(
         { _id: req.params.id },
-        { name, address }
+        { name, address, phonenumber }
       );
 
       console.log(user, req.params.id);
-      res.json({ msg: 'Update success' });
+      res.json({ msg: 'Cập nhật thông tin thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -58,7 +60,6 @@ const userController = {
       const isMath = await bcrypt.compare(password, user.password);
       if (!isMath) return res.status(400).json({ msg: 'Sai mật khẩu !' });
 
-      // login success , create accesstoken and ref token
       const accesstoken = createAccessToken({ id: user._id });
       const refreshtoken = createRefreshToken({ id: user._id });
       res.cookie('refreshtoken', refreshtoken, {
@@ -98,7 +99,8 @@ const userController = {
   getUser: async (req, res) => {
     try {
       const user = await Users.findById(req.user.id).select('-password');
-      if (!user) return res.status(400).json({ msg: 'User does not exist' });
+      if (!user)
+        return res.status(400).json({ msg: 'Người dùng không tồn tại ' });
       return res.json(user);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -133,7 +135,7 @@ const userController = {
   },
 };
 const createAccessToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '17s' });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
 };
 const createRefreshToken = (user) => {
   return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });

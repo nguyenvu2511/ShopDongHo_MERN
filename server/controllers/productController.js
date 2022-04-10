@@ -21,11 +21,10 @@ const productController = {
         category,
         brand,
       } = req.body;
-      if (!images) return res.status(400).json({ msg: 'No image upload' });
+      if (!images) return res.status(400).json({ msg: 'Không có hình ảnh' });
 
       const product = await Products.findOne({ product_id });
-      if (product)
-        return res.status(400).json({ msg: 'This product already exists.' });
+      if (product) return res.status(400).json({ msg: 'Sản phẩm dã tồn tại.' });
 
       const newProduct = new Products({
         product_id,
@@ -39,7 +38,7 @@ const productController = {
       });
 
       await newProduct.save();
-      res.json({ msg: 'Created a product' });
+      res.json({ msg: 'Thêm sản phẩm mới thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -47,7 +46,7 @@ const productController = {
   deleteProduct: async (req, res) => {
     try {
       await Products.findByIdAndDelete(req.params.id);
-      res.json({ msg: 'Deleted a Product' });
+      res.json({ msg: 'Xóa sản phẩm thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -56,7 +55,7 @@ const productController = {
     try {
       const { name, price, description, content, images, category, brand } =
         req.body;
-      if (!images) return res.status(400).json({ msg: 'No image upload' });
+      if (!images) return res.status(400).json({ msg: 'Không có hình ảnh!' });
 
       await Products.findOneAndUpdate(
         { _id: req.params.id },
@@ -71,7 +70,7 @@ const productController = {
         }
       );
 
-      res.json({ msg: 'Updated a Product' });
+      res.json({ msg: 'Cập nhật sản phẩm thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

@@ -15,11 +15,11 @@ const categoryController = {
 
       const category = await Category.findOne({ name });
       if (category)
-        return res.status(404).json({ msg: 'This category already exist' });
+        return res.status(404).json({ msg: 'Loại sản phẩm đã tồn tại !' });
       const newCategory = new Category({ name });
       await newCategory.save();
 
-      res.json({ msg: 'Create Category Success' });
+      res.json({ msg: 'Thêm loại sản phẩm thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -27,7 +27,7 @@ const categoryController = {
   deleteCategory: async (req, res) => {
     try {
       await Category.findByIdAndDelete(req.params.id);
-      res.json({ msg: 'deleteCategory success' });
+      res.json({ msg: 'Xóa loại sản phẩm thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -37,7 +37,7 @@ const categoryController = {
       const { name } = req.body;
 
       await Category.findOneAndUpdate({ id: req.params.id, name });
-      res.json({ msg: 'Update success' });
+      res.json({ msg: 'Cập nhật loại sản phẩm thành công !' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

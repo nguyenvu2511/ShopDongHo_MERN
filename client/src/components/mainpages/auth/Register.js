@@ -8,6 +8,7 @@ function Register() {
     email: '',
     password: '',
     address: '',
+    phonenumber: '',
   });
 
   const onChangeInput = (e) => {
@@ -67,10 +68,10 @@ function Register() {
           />
           <input
             type="text"
-            name="sdt"
+            name="phonenumber"
             required
             placeholder="Số điện thoại"
-            value={user.address}
+            value={user.phonenumber}
             onChange={onChangeInput}
           />
           <div className="row">
